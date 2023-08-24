@@ -31,8 +31,11 @@ stocks = {'NIFTY':{'option':'NIFTY','exchange':'NFO','expiry':{'1':{'strike_lst'
           'CRUDEOIL':{'option':'CRUDEOIL','exchange':'MCX','expiry':{'1':{'strike_lst':[],'symbol_lst':[],'token_lst':{},'instrument_lst':[],'index':'CRUDEOIL1'},'2':{'strike_lst':[],'symbol_lst':[],'token_lst':{},'instrument_lst':[],'index':'CRUDEOIL2'}}},
           'NATURALGAS':{'option':'NATURALGAS','exchange':'MCX','expiry':{'1':{'strike_lst':[],'symbol_lst':[],'token_lst':{},'instrument_lst':[],'index':'NATURALGAS1'},'2':{'strike_lst':[],'symbol_lst':[],'token_lst':{},'instrument_lst':[],'index':'NATURALGAS2'}}}
           }
+spot_token_with_option = {}
+spot_token = []
 token_to_index = {}
 final_instrument_lst = []
+spot_instrument = []
 index_to_array = {}
 index_to_update = []
 def find_field_index(field):
@@ -43,7 +46,8 @@ def find_field_index(field):
 prev_time = time.time()
 field = ['pp','ls','ti','lp','pc','c','o','h','l','ap','v','oi','poi','bp1','sp1','bq1','sq1' ]
 field_index = find_field_index(field)
-
+spot_prices_dict = {}
+strike_to_index_for_spot = {}
 
 
 def get_strike_price( option, spot_price ,r = 5): 
@@ -103,18 +107,32 @@ def update_data(index,tick_data):
 
 
 
+def update_spot(token,tick_data):
+   global spot_token_with_option,spot_prices_dict
+   for i in spot_token_with_option.keys():
+      if str(token) == spot_token_with_option[i]:
+         option = i
+         break
+   spot_prices_dict[option] = tick_data['lp']
+   with open('stock_data/spot_price.json','w') as final:
+            json.dump(spot_prices_dict, final, indent=4)
+
+
+
 def Run_websocket():
   global feed_opened
 
   def event_handler_feed_update(tick_data):
-    global feed_opened,token_to_index
+    global feed_opened,token_to_index,spot_token
     token = tick_data['tk']
-    # print(feed_opened)
     if feed_opened == False:
        pass
-    index = token_to_index[token]
-    # print(index)
-    update_data(index,tick_data)
+    
+    if str(token) in spot_token:
+       update_spot(token,tick_data)
+    else:
+      index = token_to_index[token]
+      update_data(index,tick_data)
 
   def event_handler_order_update(tick_data):
       print(f"Order update {tick_data}")
@@ -152,25 +170,39 @@ def get_symbols_for_strike_price(option , expiry_date, strike_lst, j = 10):   # 
 
 
 
+
 def get_strike_lst(option,expiry,i=10):
+    global spot_token_with_option,spot_token
     if option == 'BANKNIFTY':
+        spot_token_with_option['BANKNIFTY'] = str(26009)
+        spot_token.append(str(26009))
         t = api.get_quotes('NSE', '26009')
         spot_price = float(t['lp'])
     elif option == 'NIFTY':
+        spot_token_with_option['NIFTY'] = str(26000)
+        spot_token.append(str(26000))
         t = api.get_quotes('NSE', '26000')
         spot_price = float(t['lp'])
     elif option == 'MIDCPNIFTY':
+        spot_token_with_option['MIDCPNIFTY'] = str(26074)
+        spot_token.append(str(26074))
         t = api.get_quotes('NSE', '26074')
         spot_price = float(t['lp'])
     elif option == 'FINNIFTY':
+        spot_token_with_option['FINNIFTY'] = str(26037)
+        spot_token.append(str(26037))
         t = api.get_quotes('NSE', '26037')
         spot_price = float(t['lp'])
     elif option == 'CRUDEOIL':
         token = api.searchscrip(exchange = 'MCX', searchtext = 'CRUDEOIL'+expiry)['values'][0]['token']
+        spot_token_with_option['CRUDEOIL'] =(token)
+        spot_token.append((token))
         t = api.get_quotes('MCX', token)
         spot_price = float(t['lp'])
     elif option == 'NATURALGAS':
         token = api.searchscrip(exchange = 'MCX', searchtext = 'NATURALGAS'+expiry)['values'][0]['token']
+        spot_token_with_option['NATURALGAS'] = (token)
+        spot_token.append((token))
         t = api.get_quotes('MCX', token)
         spot_price = float(t['lp'])
     return get_strike_price(option,spot_price,i)
@@ -194,6 +226,30 @@ class websocket_use():
 
   def close(self):
     api.close_websocket()
+
+
+
+def strike_with_index_for_spot(expiry_dates):        # only run once on start
+   global stocks
+   for i in expiry_dates.keys():
+      option = i
+      if i == 'CRUDEOILFUT' or i == 'NATURALGASFUT':
+         continue
+      if option == 'CRUDEOIL':
+        expiry = expiry_dates['CRUDEOILFUT']
+      elif option == 'NATURALGAS':
+        expiry = expiry_dates['NATURALGASFUT']
+      else:
+        expiry = expiry_dates[i]
+        
+      with open('stock_data/strike_price.json','r') as final:
+            json_decoded = json.load(final)
+
+      json_decoded[option]= stocks[option]['expiry']['1']['strike_lst'] 
+
+      with open('stock_data/strike_price.json','w') as final:
+            json.dump(json_decoded, final, indent=4)
+      
 
 
 
@@ -260,6 +316,14 @@ def helper_instrument_lst(expiry_dates):
       stocks[option]['expiry']['2']['instrument_lst'] = make_instrument(exchange,stocks[option]['expiry']['2']['token_lst'])
 
 
+def make_spot_instrument():
+    global spot_token_with_option,spot_instrument
+    for i in spot_token_with_option.keys():
+      if i =='NIFTY' or i == 'BANKNIFTY' or i == 'FINNIFTY' or i == 'MIDCPNIFTY':
+        spot_instrument.append('NSE|'+(spot_token_with_option[i]))
+      elif i == 'CRUDEOIL' or i=='NATURALGAS':
+         spot_instrument.append('MCX|'+(spot_token_with_option[i]))
+    return spot_instrument
 
 def helper_token_index(token_lst,index):
    lst = {}
@@ -269,8 +333,22 @@ def helper_token_index(token_lst,index):
 
 
 
+def get_strike_to_index_for_spot():
+   global stocks,strike_to_index_for_spot
+   for i in  stocks.keys():
+      lst = stocks[i]['expiry']['1']['strike_lst']
+      strike_to_index_for_spot[i] = {}
+      for j in range(len(lst)):
+         strike_to_index_for_spot[i][lst[j]] = [j+1]
+
+   with open('stock_data/strike_price.json','w') as final:
+      json.dump(strike_to_index_for_spot, final, indent=4)    
+    
+
+
+
 def final_helper(expiry_dates):
-   global stocks,token_to_index,final_instrument_lst
+   global stocks,token_to_index,final_instrument_lst,spot_token,spot_instrument
    for i in expiry_dates.keys():
       option = i
       if i == 'CRUDEOILFUT' or i == 'NATURALGASFUT':
@@ -279,8 +357,16 @@ def final_helper(expiry_dates):
       token_to_index.update(helper_token_index(stocks[option]['expiry']['2']['token_lst'],stocks[option]['expiry']['2']['index']))
       final_instrument_lst.extend(stocks[option]['expiry']['1']['instrument_lst'])
       final_instrument_lst.extend(stocks[option]['expiry']['2']['instrument_lst'])
+   final_instrument_lst.extend(spot_instrument)
 
 
+
+def make_array():
+   array = np.random.rand(42,17)
+   for i in range(42):
+      for j in range(17):
+         array[i][j] = 0
+   return array
 
 def connect_index_array(expiry_dates):
    global stocks,index_to_array
@@ -288,8 +374,10 @@ def connect_index_array(expiry_dates):
       option = i
       if i == 'CRUDEOILFUT' or i == 'NATURALGASFUT':
          continue
-      index_to_array[stocks[option]['expiry']['1']['index']] = np.random.rand(42,17)
-      index_to_array[stocks[option]['expiry']['2']['index']] = np.random.rand(42,17)
+      # index_to_array[stocks[option]['expiry']['1']['index']] = np.random.rand(42,17)
+      # index_to_array[stocks[option]['expiry']['2']['index']] = np.random.rand(42,17)
+      index_to_array[stocks[option]['expiry']['1']['index']] = make_array()
+      index_to_array[stocks[option]['expiry']['2']['index']] = make_array()
 
 
 
@@ -388,6 +476,7 @@ def reconnect():
    global socket
    socket.unsubscribe(final_instrument_lst)
    socket.close()
+   time.sleep(1)
    socket = websocket_use()
    socket.connect()
    socket.start(final_instrument_lst)
@@ -405,12 +494,13 @@ def lets_start():
   helper_token_lst(expiry_dates)
   print('finding token list done')
   helper_instrument_lst(expiry_dates)
+  make_spot_instrument()
   final_helper(expiry_dates)
+  get_strike_to_index_for_spot()
   connect_index_array(expiry_dates)
   socket = websocket_use()
   socket.connect()
   socket.start(final_instrument_lst)
-  # check_excel()
   time.sleep(2)
   take_data = 1
 
@@ -423,6 +513,7 @@ if __name__ == "__main__":
   while True:
     write_to_excel()
     reconnect()
+
   # check = multiprocessing.Value('i', 1)
   # check = take_data
   # parent_conn, child_conn = multiprocessing.Pipe()

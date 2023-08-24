@@ -11,6 +11,11 @@ mcx = ['CRUDEOIL','NATURALGAS','CRUDEOILFUT','NATURALGASFUT']
 final_expiry = {'NIFTY':[],'BANKNIFTY':[],'FINNIFTY':[],'MIDCPNIFTY':[],'CRUDEOIL':[],'NATURALGAS':[],'CRUDEOILFUT':[],'NATURALGASFUT':[]}
 
 
+def check_files_is_present():
+    for i in files_txt:
+        check = os.path.exists('./expiry/'+i) 
+        if check == True:
+            os.remove('./expiry/'+i)
 def download_txt(files):
     for i in files:
         wget.download('https://api.shoonya.com/' +i , './expiry')
@@ -65,9 +70,24 @@ def get_token(given_exchange,symbol_lst):
                     token_lst[founded_line[1]] = i+1
                     break
     return token_lst
+# def get_spot_token(symbols_lst):
+#     for i in symbols_lst:
+        
+def find_atm(option,spot_price):
+    if option == "NIFTY" or option == "FINNIFTY" or option == 'CRUDEOIL':
+        ATM = 50*((spot_price + 25)//50)
+    elif option == 'BANKNIFTY':
+        ATM = 100*((spot_price+ 50)//100)
+    elif option == 'MIDCPNIFTY':
+        ATM = 25*((spot_price+ 12.5)//25)
+    elif option == 'NATURALGAS':
+        ATM = 5*((spot_price + 2.5)//5)
+    return ATM
+
 
 def get_expiry():
     global files_txt,exchange,to_find,final_expiry,files
+    check_files_is_present()
     download_txt(files)
     find_expiry(files_txt,exchange,to_find)
     return final_expiry
