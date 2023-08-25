@@ -1,141 +1,92 @@
-// import React, { useState, useEffect } from 'react';
-// import ApexCharts from 'react-apexcharts';
+import React, { useState ,useEffect} from 'react'
+import { Pie , Line} from 'react-chartjs-2'
+import { Chart, registerables } from 'chart.js'
+import './component.css'
+Chart.register(...registerables)
 
-// function Apex() {
-//   const [data, setData] = useState({
-//     series: [{
-//       name: 'sales',
-//       data: [30, 40, 45, 50, 49, 60, 70, 91, 125]
-//     }],
-//     options: {
-//       chart: {
-//         type: 'bar'
-//       },
-//       xaxis: {
-//         categories: [1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998, 1999]
-//       },
-//       plotOptions: {
-//         bar: {
-//           horizontal: false,
-//           columnWidth: '55%', // Adjust the column width here
-//           borderRadius: 5,
-//         }
-//       },
-//       dataLabels: {
-//         enabled: false
-//       },
-//       stroke: {
-//         show: true,
-//         width: 3 // Adjust the stroke width here
-//       },
-//     }
-//   });
 
-//   useEffect(() => {
-//     const interval = setInterval(() => {
-//       // Update the data with new values and size
-//       const newData = {
-//         series: [{
-//           name: 'sales',
-//           data: [...data.series[0].data, Math.floor(Math.random() * 100)]
-//         }],
-//         options: {
-//           ...data.options,
-//           xaxis: {
-//             categories: [...data.options.xaxis.categories, data.options.xaxis.categories[data.options.xaxis.categories.length - 1] + 1]
-//           }
-//         }
-//       };
-//       setData(newData);
-//     }, 1000);
 
-//     return () => {
-//       clearInterval(interval);
-//     };
-//   }, [data]);
-
-//   return (
-//     <div className="app">
-//       <div className="row">
-//         <div className="mixed-chart">
-//           <ApexCharts options={data.options} series={data.series} type="line" width="500" />
-//         </div>
-//       </div>
-//     </div>
-//   );
-// }
-
-// export default Apex;
-
-import React, { useState, useEffect } from 'react';
-import ApexCharts from 'react-apexcharts';
-
-function Apex() {
-  const [histo, setHisto] = useState([]);
-  const [histolable, setHistoLable] = useState([]);
-  
-  const initialData = {
-    series: [{
-      name: 'sales',
-      data: histo
-    }],
-    options: {
-      xaxis: {
-        categories: histolable
+function Apex (){
+  const [label,setlable] = useState(['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday',])
+  const [data,setdata] = useState([10, 14, 17, 16, 19, 16, 17])
+  const state = {
+    labels: label,
+    datasets: [
+      {
+        label: 'Class Strength',
+        backgroundColor: 'rgb(54, 162, 235)',
+        borderColor: 'rgb(54, 162, 235)',
+        data: data,
       },
-    }
-  };
+    ],
+  }
+
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      const newRandomValue = Math.floor(Math.random() * 100);
-      setHisto(prevHisto => [...prevHisto, newRandomValue]);
-    }, 1000);
+    const config ={
 
-    const updateInterval = setInterval(() => {
-      setHistoLable(prevLabels => [...prevLabels, prevLabels.length + 1]);
-    }, 2000);
+
+
+      type: 'line',
+      data:state,
+      options:{
+        // responsive: true,
+        maintainAspectRatio: false,
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero:true
+                }
+            }]
+        },
+        title: {
+          display: true,
+          text: 'Class Strength',
+          fontSize: 20,
+        },
+        legend: {
+          display: true,
+          position: 'right',
+        }
+      }
+    }
+    
+
+    const myChart = new Chart(document.getElementById('myChart'), config);
 
     return () => {
-      clearInterval(interval);
-      clearInterval(updateInterval);
+      myChart.destroy();
     };
   }, []);
 
-  const data = {
-    series: [{
-      name: 'sales',
-      data: histo
-    }],
-    options: {
-      chart: {
-        id: "chart1",
-        height: 130,
-        type: "bar",
-        foreColor: "#ccc",
-        brush: {
-          target: "chart1",
-          enabled: true
-        },
-      xaxis: {
-        categories: histolable
-      },
-    }
-  }
-}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   return (
-    <div className="app">
-      <div className="row">
-        <div className="mixed-chart">
-          <ApexCharts options={data.options} series={data.series} type="line" width="500" />
-        </div>
+    <div className='task-manager'>
+      <div class="chartCard">
+      <div className='chartBox'>
+        <canvas id="myChart"></canvas>
+        
+      </div>
       </div>
     </div>
   );
 }
-
 export default Apex;
-
-  
-
-

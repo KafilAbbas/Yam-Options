@@ -1,0 +1,131 @@
+*{margin: 1px ; box-sizing: border-box }
+/* .optionselect{
+    font-size: large;
+    color: blueviolet;
+} */
+/* .custom{
+    color: DodgerBlue;
+    padding: 4px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    text-align: center;
+} */
+
+/* .mycasdhart{
+
+    box-shadow: 0px 0px 10px blue;
+    box-sizing: border-box;
+    margin-right: 10px;
+    margin-left: 10px;
+    margin-top: 100px    ;
+    color: #404244;
+    width :240px;
+    height: 400px;
+    
+}  */
+/* .box{
+    box-shadow: 0px 0px 10px blue;
+    align-self: center;
+    color: #404244;
+    box-sizing: content-box;
+    width :1400px;
+    height: 400px; 
+} */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+* {
+        margin: 0;
+        font-family: sans-serif;
+      }
+      .chartMenu {
+        width: 100vw;
+        height: 40px;
+        background: #1A1A1A;
+        color: rgba(54, 162, 235, 1);
+      }
+      .chartCard {
+        width: 98.9vw;
+        height: calc(87vh);
+        /* margin-bottom: 20px; */
+        background: rgba(0, 0, 0, 0.2);
+        display: flex;
+        /* flex-direction: column; */
+        align-items: center;
+        justify-content: center;
+      }
+      .chartBox {
+        width: 70vw;
+        height: 50vh;
+        border-radius: 20px;
+        background: rgb(255, 255, 255);
+        box-shadow: 0px 0px 15px rgb(0, 0, 0);
+      }
+      .rangeBox{
+        margin-top: 25px;
+        height: 5px;
+        width:1200px;
+        accent-color: rgb(43, 206, 255);
+        border-radius: 100%;
+      }  
+      .Main{
+        width:98.9vw;
+        height:110vh;
+        background-color: #1a2038;
+      }
+      .selectdrop{
+        color: rgba(54, 162, 235, 1);
+      }
+      .prices{
+        
+        color: rgb(207, 205, 205);
+      }
+      .optionselect1{
+        font-size: large;
+        /* padding-left: 10px; */
+        /* margin-left: 10px; */
+        top: 100px;
+      }
+      .optionselect2{
+        font-size: large;
+        /* padding-left: 10px; */
+        margin-left: 10px;
+        top: 100px;
+      }
+
+      @media only screen and (max-width:400px){
+        .chartBox{
+            width: 20%;
+            height: 40%;
+            border-radius: 20px;
+            background: rgb(255, 255, 255);
+            box-shadow: 0px 0px 15px lightslategray;
+        }
+        .rangeBox{
+            margin-left: 20px;
+            margin-top: 15px;
+            height: 20px;
+            width: 350px;   
+            accent-color: rgb(43, 206, 255);
+            border-radius: 100%;
+          }
+          .Main{
+            width:100vw;
+            height:111vh;
+            background-color: rgb(20, 21, 22);
+          }
+      }  
+
+      
