@@ -52,10 +52,31 @@ This website is made with Django rest-framework as backend and React as frontend
   ```sh
   pip install zipfile
   ```
-       
 
-  
+#### For Frontend
+  ```sh
+  npm install 
+  ```
 
+### Installation
+
+1. Change the ip at your ip in reactapp/src/components/option_chain.js on line 8 and 329
+2. Change the ip at your ip in reactapp/src/components/stradle.js on line 5 and 57
+3. Change the allowed hosts in djangoproj/djangoproj/setting.py
+4. Run the file Dataextractor in djangoproj/djangoproj/py_prog in background
+5. Run the file NSE_HISTO.py and MCX_HISTO.py in py_prog
+6. Run the file stradleNFO.py and stradleMCX.py in py_prog
+7. Run server
+  ```sh
+  python manage.py runserver 0.0.0.0:8000 
+  ```
+8. Run Frontend server
+```sh
+  npm start 
+  ```
+## Usage
+
+This application is used for live option chain data analysis of NSE mainly nifty, banknifty, finnifty, midcapnifty and MCX mainly crude oil and natural gas each having two expiries. On the basis of live data such as Last traded prices, volume and open interest, change in open interest one can analyse the market mood and behavior and live straddle chart can help to get trades at the right time entry for option scalping.   
 
 [Django.js]: https://img.shields.io/badge/django-%23092E20.svg?style=for-the-badge&logo=django&logoColor=white
 [Django-url]: https://www.djangoproject.com/
