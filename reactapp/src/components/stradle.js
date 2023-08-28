@@ -2,7 +2,7 @@ import {useState, useEffect,useRef} from "react";
 import Chart, { plugins } from 'chart.js/auto';
 import './component.css'
 import Navbar from './navbar'
-const expiry_url = `ws://192.168.124.38:8000/ws/stock_updates/expiry`;
+const expiry_url = `ws://192.168.239.38:8000/ws/stock_updates/expiry`;
 function Stradle(){
   const [data, setdata] = useState([]);
   const [expiry_date, setexpiry] = useState([]);
@@ -54,7 +54,7 @@ function Stradle(){
 
   
   useEffect(() => {
-    const socketUrl = `ws://192.168.124.38:8000/ws/stradle/${inputValue}`;
+    const socketUrl = `ws://192.168.239.38:8000/ws/stradle/${inputValue}`;
     if(inputValue == '')
     {
       return () => {
@@ -248,7 +248,6 @@ function check(event){
   return (
     <div className="Main">
       <Navbar/>
-      <div><h1 style={{color:'white'}}>width: {(windowSize[0])} height: {windowSize[1]}</h1></div>
       <div className="all">
       <div className="selectdrop">
       <select className='optionselect1' id = 'optionselect' value={select1} onChange={handleselect1} >

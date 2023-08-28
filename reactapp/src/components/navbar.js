@@ -17,10 +17,9 @@ function Navbar() {
 			<a  href="/"><img className='logo' src={logo} alt="Yam Option" /></a>
             </div>
 			<nav ref={navRef}>
-				<a href="/#">Home</a>
+				<a href="/">Home</a>
 				<a href="/option_chain">Option Chain</a>
 				<a href="/stradle" >Stradle</a>
-				<a href="/#">About me</a>
 				<button
 					className="nav-btn nav-close-btn"
 					onClick={showNavbar}>

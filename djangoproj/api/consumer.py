@@ -206,7 +206,7 @@ class stradleBANKNIFTY1(AsyncWebsocketConsumer):
                 continue
             
         while True:
-            if  not ((int(datetime.datetime.now().strftime('%H%M')) < 1530 and int(datetime.datetime.now().strftime('%H%M%S')) >= 91500) and datetime.datetime.now().strftime('%a') not in working_days) :
+            if  (not ((int(datetime.datetime.now().strftime('%H%M')) < 1530 and int(datetime.datetime.now().strftime('%H%M%S')) >= 91500)) and datetime.datetime.now().strftime('%a') not in working_days) :
                 break
             try:
                 data = pd.read_json(os.path.join(BASE_DIR,'py_prog/STRADLELIVE/BANKNIFTY1.json'))
@@ -239,7 +239,7 @@ class stradleBANKNIFTY2(AsyncWebsocketConsumer):
                 continue
             
         while True:
-            if  not ((int(datetime.datetime.now().strftime('%H%M')) < 1530 and int(datetime.datetime.now().strftime('%H%M%S')) >= 91500) and datetime.datetime.now().strftime('%a') not in working_days) :
+            if  (not ((int(datetime.datetime.now().strftime('%H%M')) < 1530 and int(datetime.datetime.now().strftime('%H%M%S')) >= 91500)) and datetime.datetime.now().strftime('%a') not in working_days) :
                 break
             try:
                 data = pd.read_json(os.path.join(BASE_DIR,'py_prog/STRADLELIVE/BANKNIFTY2.json'))
@@ -272,7 +272,7 @@ class stradleNIFTY1(AsyncWebsocketConsumer):
                 continue
             
         while True:
-            if  not ((int(datetime.datetime.now().strftime('%H%M')) < 1530 and int(datetime.datetime.now().strftime('%H%M%S')) >= 91500) and datetime.datetime.now().strftime('%a') not in working_days) :
+            if  (not ((int(datetime.datetime.now().strftime('%H%M')) < 1530 and int(datetime.datetime.now().strftime('%H%M%S')) >= 91500)) and datetime.datetime.now().strftime('%a') not in working_days) :
                 break
             try:
                 data = pd.read_json(os.path.join(BASE_DIR,'py_prog/STRADLELIVE/NIFTY1.json'))
@@ -305,7 +305,7 @@ class stradleNIFTY2(AsyncWebsocketConsumer):
                 continue
             
         while True:
-            if  not ((int(datetime.datetime.now().strftime('%H%M')) < 1530 and int(datetime.datetime.now().strftime('%H%M%S')) >= 91500) and datetime.datetime.now().strftime('%a') not in working_days) :
+            if  (not ((int(datetime.datetime.now().strftime('%H%M')) < 1530 and int(datetime.datetime.now().strftime('%H%M%S')) >= 91500)) and datetime.datetime.now().strftime('%a') not in working_days) :
                 break
             try:
                 data = pd.read_json(os.path.join(BASE_DIR,'py_prog/STRADLELIVE/NIFTY2.json'))
@@ -338,7 +338,7 @@ class stradleFINNIFTY1(AsyncWebsocketConsumer):
                 continue
             
         while True:
-            if  not ((int(datetime.datetime.now().strftime('%H%M')) < 1530 and int(datetime.datetime.now().strftime('%H%M%S')) >= 91500) and datetime.datetime.now().strftime('%a') not in working_days) :
+            if  (not ((int(datetime.datetime.now().strftime('%H%M')) < 1530 and int(datetime.datetime.now().strftime('%H%M%S')) >= 91500)) and datetime.datetime.now().strftime('%a') not in working_days) :
                 break
             try:
                 data = pd.read_json(os.path.join(BASE_DIR,'py_prog/STRADLELIVE/FINNIFTY1.json'))
@@ -372,7 +372,7 @@ class stradleFINNIFTY2(AsyncWebsocketConsumer):
                 continue
             
         while True:
-            if  not ((int(datetime.datetime.now().strftime('%H%M')) < 1530 and int(datetime.datetime.now().strftime('%H%M%S')) >= 91500) and datetime.datetime.now().strftime('%a') not in working_days) :
+            if  (not ((int(datetime.datetime.now().strftime('%H%M')) < 1530 and int(datetime.datetime.now().strftime('%H%M%S')) >= 91500)) and datetime.datetime.now().strftime('%a') not in working_days) :
                 break
             try:
                 data = pd.read_json(os.path.join(BASE_DIR,'py_prog/STRADLELIVE/FINNIFTY2.json'))
@@ -405,7 +405,7 @@ class stradleMIDCPNIFTY1(AsyncWebsocketConsumer):
                 continue
             
         while True:
-            if  not ((int(datetime.datetime.now().strftime('%H%M')) < 1530 and int(datetime.datetime.now().strftime('%H%M%S')) >= 91500) and datetime.datetime.now().strftime('%a') not in working_days) :
+            if  (not ((int(datetime.datetime.now().strftime('%H%M')) < 1530 and int(datetime.datetime.now().strftime('%H%M%S')) >= 91500)) and datetime.datetime.now().strftime('%a') not in working_days) :
                 break
             try:
                 data = pd.read_json(os.path.join(BASE_DIR,'py_prog/STRADLELIVE/MIDCPNIFTY1.json'))
@@ -423,6 +423,7 @@ class stradleMIDCPNIFTY1(AsyncWebsocketConsumer):
 class stradleMIDCPNIFTY2(AsyncWebsocketConsumer):
     async def connect(self):
         flag = 1
+        send_first = 0
         await self.accept()
         while True:
             try:
@@ -438,8 +439,7 @@ class stradleMIDCPNIFTY2(AsyncWebsocketConsumer):
                 continue
             
         while True:
-            if  not ((int(datetime.datetime.now().strftime('%H%M')) < 1530 and int(datetime.datetime.now().strftime('%H%M%S')) >= 91500) and datetime.datetime.now().strftime('%a') not in working_days) :
-                break
+
 
             try:
                 data = pd.read_json(os.path.join(BASE_DIR,'py_prog/STRADLELIVE/MIDCPNIFTY2.json'))
@@ -454,6 +454,8 @@ class stradleMIDCPNIFTY2(AsyncWebsocketConsumer):
             newdata = data.to_json(index=4)
             await self.send(newdata)
             await asyncio.sleep(1)
+            if  (not ((int(datetime.datetime.now().strftime('%H%M')) < 1530 and int(datetime.datetime.now().strftime('%H%M%S')) >= 91500)) and datetime.datetime.now().strftime('%a') not in working_days) :
+                break
 class stradleCRUDEOIL1(AsyncWebsocketConsumer):
     async def connect(self):
         flag = 1
@@ -472,8 +474,8 @@ class stradleCRUDEOIL1(AsyncWebsocketConsumer):
                 continue
             
         while True:
-            # if  not ((int(datetime.datetime.now().strftime('%H%M')) < 2330 and int(datetime.datetime.now().strftime('%H%M%S')) >= 90000) and datetime.datetime.now().strftime('%a') not in working_days) :
-            #     break
+            if  (not((int(datetime.datetime.now().strftime('%H%M')) < 2330 and int(datetime.datetime.now().strftime('%H%M%S')) >= 90000)) and datetime.datetime.now().strftime('%a') not in working_days) :
+                break
 
             try:
                 data = pd.read_json(os.path.join(BASE_DIR,'py_prog/STRADLELIVE/CRUDEOIL1.json'))
@@ -506,8 +508,8 @@ class stradleCRUDEOIL2(AsyncWebsocketConsumer):
                 continue
             
         while True:
-            # if  not ((int(datetime.datetime.now().strftime('%H%M')) < 2330 and int(datetime.datetime.now().strftime('%H%M%S')) >= 90000) and datetime.datetime.now().strftime('%a') not in working_days) :
-            #     break
+            if  (not((int(datetime.datetime.now().strftime('%H%M')) < 2330 and int(datetime.datetime.now().strftime('%H%M%S')) >= 90000)) and datetime.datetime.now().strftime('%a') not in working_days) :
+                break
 
             try:
                 data = pd.read_json(os.path.join(BASE_DIR,'py_prog/STRADLELIVE/CRUDEOIL2.json'))
@@ -540,8 +542,7 @@ class stradleNATURALGAS1(AsyncWebsocketConsumer):
                 continue
             
         while True:
-            # if  not ((int(datetime.datetime.now().strftime('%H%M')) < 2330 and int(datetime.datetime.now().strftime('%H%M%S')) >= 90000) and datetime.datetime.now().strftime('%a') not in working_days) :
-            #     break
+            
 
             try:
                 data = pd.read_json(os.path.join(BASE_DIR,'py_prog/STRADLELIVE/NATURALGAS1.json'))
@@ -557,6 +558,8 @@ class stradleNATURALGAS1(AsyncWebsocketConsumer):
             await self.send(newdata)
             sleep_to_next = 1 - float(datetime.datetime.now().strftime("%f"))/1000000
             await asyncio.sleep(sleep_to_next)
+            if  (not((int(datetime.datetime.now().strftime('%H%M')) < 2330 and int(datetime.datetime.now().strftime('%H%M%S')) >= 90000)) and datetime.datetime.now().strftime('%a') not in working_days) :
+                break
 class stradleNATURALGAS2(AsyncWebsocketConsumer):
     async def connect(self):
         flag = 1
@@ -575,9 +578,6 @@ class stradleNATURALGAS2(AsyncWebsocketConsumer):
                 continue
             
         while True:
-            # if  not ((int(datetime.datetime.now().strftime('%H%M')) < 2330 and int(datetime.datetime.now().strftime('%H%M%S')) >= 90000) and datetime.datetime.now().strftime('%a') not in working_days) :
-            #     break
-
             try:
                 data = pd.read_json(os.path.join(BASE_DIR,'py_prog/STRADLELIVE/NATURALGAS2.json'))
                 if int(datetime.datetime.now().strftime('%S')) >= 59 and flag == 1:
@@ -591,3 +591,5 @@ class stradleNATURALGAS2(AsyncWebsocketConsumer):
             newdata = data.to_json(index=4)
             await self.send(newdata)
             await asyncio.sleep(1)
+            if  (not((int(datetime.datetime.now().strftime('%H%M')) < 2330 and int(datetime.datetime.now().strftime('%H%M%S')) >= 90000)) and datetime.datetime.now().strftime('%a') not in working_days) :
+                break

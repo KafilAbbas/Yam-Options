@@ -42,3 +42,10 @@ td:nth-child(7)
   /* background-color: green; */
   color:rgb(23, 61, 85);
 }
+.default{
+  color: beige;
+  font-size: xx-large;
+  margin-left: 37vw;  
+  margin-top: 40vh;
+  align-self: center;
+}

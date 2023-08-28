@@ -6,7 +6,7 @@ function NameList(props) {
    if (mydata.length === 0)
    {
     return(
-      <div>please give some input</div>
+      <div className='default'>Please give some input</div>
     )
    }
    else
