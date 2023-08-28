@@ -5,7 +5,7 @@ import {useState, useEffect} from "react";
 import NameList from './make_table'
 import Navbar from "./navbar";
 import './table.css'
-  const expiry_url = `ws://192.168.239.38:8000/ws/stock_updates/expiry`;
+  const expiry_url = `ws://43.204.30.234:8000/ws/stock_updates/expiry`;
 
 
 function OptionChain() {
@@ -39,7 +39,7 @@ function OptionChain() {
 
   
   useEffect(() => {
-    const socketUrl = `ws://192.168.239.38:8000/ws/stock_updates/${inputValue}`;
+    const socketUrl = `ws://43.204.30.234:8000/ws/stock_updates/${inputValue}`;
 
     const socket = new WebSocket(socketUrl);
       socket.onmessage = event => {
