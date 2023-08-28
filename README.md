@@ -19,12 +19,41 @@ This website is made with Django rest-framework as backend and React as frontend
 #### For backend
 
 * Shoonya Api
-* Norenlink
-This is an example of how to list things you need to use the software and how to install them.
-* npm
   ```sh
-  npm install npm@latest -g
+  pip install requests
   ```
+   ```sh
+  pip install websocket_client
+  ```
+    ```sh
+  pip install ./Requirement/NorenRestApiPy-0.0.22-py2.py3-none-any.whl
+  ```
+     ```sh
+  pip install pandas
+  ```
+     ```sh
+  pip install pyyaml
+  ``` 
+* Writing CSV
+  1. xlwings
+  ```sh
+  pip install xlwings
+  ```
+  2. xlsxwriter
+  ```sh
+  pip install xlsxwriter
+  ```
+* Downloading files
+  1. wget
+  ```sh
+  pip install wget
+  ```
+  2. zipfile
+  ```sh
+  pip install zipfile
+  ```
+       
+
   
 
 
