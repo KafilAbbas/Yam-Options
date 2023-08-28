@@ -1,3 +1,10 @@
-# website_with_dataextractor
-this is a webapp which is having a backend server made with django and frontend made with react this web app use the live data which is fetched by dataextractor using websocket through shoonya api and send it to frontend through a new websocket between frontend and backend 
-How To Operate The Site:
+## About The Project
+
+[![Product Name Screen Shot][product-screenshot]](https://example.com)
+This website is made with django framework as backend and reactjs as frontend
+#### Features
+* It provide live data of 6 indices named as NIFTY,BANKNIFTY,CRUDEOIL,NATURALGAS,FINNIFTY,MIDCPNIFTY
+* The data provided is tick by tick it means updated every 0.05 sec
+* 
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
