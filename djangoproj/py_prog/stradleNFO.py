@@ -12,8 +12,8 @@ while True:
     final_JSON = {}
     update_data = 1
     flag = 0
-    print(int(curr_time.strftime('%S%f')))
-    print(curr_time.strftime('%S'))
+    # print(int(curr_time.strftime('%S%f')))
+    # print(curr_time.strftime('%S'))
     if  not (int(curr_time.strftime("%H%M")) < 1530 and int(curr_time.strftime("%H%M%S")) >= 91458):
         update_data = 0
         flag = 1
@@ -21,8 +21,8 @@ while True:
             sleep = 0
         else:
             sleep = 120
-        print('sleeping till tomorrow' )
-        print(datetime.datetime.now().strftime("%H:%M:%S"))
+        # print('sleeping till tomorrow' )
+        # print(datetime.datetime.now().strftime("%H:%M:%S"))
         time.sleep(sleep)
     if ((int(curr_time.strftime("%H%M")) >= 830 and int(curr_time.strftime("%H%M")) < 915) and flag == 1):
         for i in stock_list:
@@ -61,7 +61,7 @@ while True:
                 final_data = {'premium':atm_premium,'price':atm_price,'spot':spot}
                 
                 if int(curr_time.strftime('%S%f')) >= 59000000:
-                    print('i am inside')
+                    # print('i am inside')
                     with open('STRADLE/'+i+'.json','r') as premium_data:
                         try:
                             data_premium = json.load(premium_data)
