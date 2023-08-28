@@ -10,7 +10,7 @@
 :root {
 	--mainColor: #1a2038;
 	--mainColorLight: #5767aa;
-	--secondaryColor: #db2b39;
+	--secondaryColor: #2b98db;
 	--textColor: #eee;
 }
 
@@ -31,6 +31,7 @@ nav a {
 }
 
 nav a:hover {
+	transition: 0.5s;
 	color: var(--secondaryColor);
 }
 

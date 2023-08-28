@@ -50,6 +50,21 @@
         margin: 0;
         font-family: sans-serif;
       }
+      header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        height: 80px;
+        padding: 0 2rem;
+        background-color: var(--mainColor);
+        color: var(--textColor);
+      }
+      .all{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    
+      }
       .chartMenu {
         width: 100vw;
         height: 40px;
@@ -58,7 +73,7 @@
       }
       .chartCard {
         width: 98.9vw;
-        height: calc(87vh);
+        height:650px;
         /* margin-bottom: 20px; */
         background: rgba(0, 0, 0, 0.2);
         display: flex;
@@ -82,7 +97,7 @@
       }  
       .Main{
         width:98.9vw;
-        height:110vh;
+        height:102vh;
         background-color: #1a2038;
       }
       .selectdrop{
@@ -105,7 +120,7 @@
         top: 100px;
       }
 
-      @media only screen and (max-width:400px){
+      @media only screen and (max-width:650px){
         .chartBox{
             width: 20%;
             height: 40%;
@@ -122,9 +137,62 @@
             border-radius: 100%;
           }
           .Main{
-            width:100vw;
-            height:111vh;
+            width:400px;
+            height:120vh;
             background-color: rgb(20, 21, 22);
+          }
+          body {
+            -webkit-text-size-adjust: 100%;
+            -ms-text-size-adjust: 100%;
+          }
+          .chartCard {
+            width: 98.9vw;
+            height: calc(87vh);
+            /* margin-bottom: 20px; */
+            background: rgba(0, 0, 0, 0.2);
+            display: flex;
+            /* flex-direction: column; */
+            align-items: center;
+            justify-content: center;
+          }
+      }  
+
+      @media only screen and (max-width:1000px )and (min-width:700px){
+        /* .chartBox{
+            width: 20%;
+            height: 40%;
+            margin-top: 100px;
+            margin-left: 65px;
+            border-radius: 20px;
+            background: rgb(255, 255, 255);
+            box-shadow: 0px 0px 15px lightslategray;
+        }*/
+        .rangeBox{
+            margin-left: 40px;
+            margin-top: 15px;
+            height: 20px;
+            width: 760px;   
+            accent-color: rgb(43, 206, 255);
+            border-radius: 100%;
+          }
+          /* .Main{
+            width:850px;
+            height:60px;
+            background-color: rgb(20, 21, 22);
+          }
+          body {
+            -webkit-text-size-adjust: 100%;
+            -ms-text-size-adjust: 100%;
+          }  */
+          .chartCard {
+            width: 98.9vw;
+            height: calc(87vh);
+            /* margin-bottom: 20px; */
+            background: rgba(0, 0, 0, 0.2);
+            display: flex;
+            /* flex-direction: column; */
+            align-items: center;
+            justify-content: center;
           }
       }  
 
