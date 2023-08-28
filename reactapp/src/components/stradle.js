@@ -2,7 +2,7 @@ import {useState, useEffect,useRef} from "react";
 import Chart, { plugins } from 'chart.js/auto';
 import './component.css'
 import Navbar from './navbar'
-const expiry_url = `ws://192.168.239.38:8000/ws/stock_updates/expiry`;
+const expiry_url = `ws://43.204.30.234:8000/ws/stock_updates/expiry`;
 function Stradle(){
   const [data, setdata] = useState([]);
   const [expiry_date, setexpiry] = useState([]);
@@ -54,7 +54,7 @@ function Stradle(){
 
   
   useEffect(() => {
-    const socketUrl = `ws://192.168.239.38:8000/ws/stradle/${inputValue}`;
+    const socketUrl = `ws://43.204.30.234:8000/ws/stradle/${inputValue}`;
     if(inputValue == '')
     {
       return () => {
