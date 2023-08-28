@@ -62,10 +62,10 @@ This website is made with Django rest-framework as backend and React as frontend
 
 1. Change the ip at your ip in reactapp/src/components/option_chain.js on line 8 and 329
 2. Change the ip at your ip in reactapp/src/components/stradle.js on line 5 and 57
-3. Change the allowed hosts in djangoproj/djangoproj/setting.py
+3. Add you ip in allowed hosts in djangoproj/djangoproj/setting.py 
 4. Run the file Dataextractor in djangoproj/djangoproj/py_prog in background
-5. Run the file NSE_HISTO.py and MCX_HISTO.py in py_prog
-6. Run the file stradleNFO.py and stradleMCX.py in py_prog
+5. Run the file NSE_HISTO.py and MCX_HISTO.py present in py_prog in background
+6. Run the file stradleNFO.py and stradleMCX.py present in py_prog in background
 7. Run server
   ```sh
   python manage.py runserver 0.0.0.0:8000 
@@ -73,6 +73,10 @@ This website is made with Django rest-framework as backend and React as frontend
 8. Run Frontend server
 ```sh
   npm start 
+  ```
+9. Acess it using url as
+```sh
+  http://yout_ip_addr:port/
   ```
 ## Usage
 
