@@ -80,7 +80,7 @@ This website is made with Django rest-framework as backend and React as frontend
   http://yout_ip_addr:port/
   ```
 ## Usage
-#### url http://yamoptions.in:3000/
+#### url http://yamoptions.in/
 This application is used for live option chain data analysis of NSE mainly nifty, banknifty, finnifty, midcapnifty and MCX mainly crude oil and natural gas each having two expiries. On the basis of live data such as Last traded prices, volume and open interest, change in open interest one can analyse the market mood and behavior and live straddle chart can help to get trades at the right time entry for option scalping.   
 
 [Django.js]: https://img.shields.io/badge/django-%23092E20.svg?style=for-the-badge&logo=django&logoColor=white
